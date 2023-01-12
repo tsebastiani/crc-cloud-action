@@ -8,6 +8,10 @@ jobs:
   crc-create:
     runs-on: ubuntu-latest
     steps:
+    - name: Install oc
+      uses: redhat-actions/oc-installer@v1
+      with:
+        oc_version: '4.10.0'
     - name: Create Workdir
       run: mkdir workdir
     - name: Pull CRC
@@ -31,10 +35,7 @@ jobs:
       id: cluster_address
       with:
         cmd: jq -r '.api.address' $(pwd)/workdir/crc/cluster_infos.json
-    - name: Install oc
-      uses: redhat-actions/oc-installer@v1
-      with:
-        oc_version: '4.7'
+
     - name: oc login & get namespaces
       run: |
         oc login -u kubeadmin -p kubeadmin ${{ steps.keywords.outputs.value }}:644 && \
