@@ -13,6 +13,6 @@ jobs:
       with:
         oc_version: latest
     - name: Run JQ
-      run: jq
+      run: which jq
     
 
