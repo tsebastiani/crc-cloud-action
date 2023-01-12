@@ -10,6 +10,8 @@ jobs:
     steps:
     - name: Create Workdir
       run: mkdir workdir
+    - name: Pull CRC
+      run: docker pull quay.io/crcont/crc-cloud:latest
     - name: Run CRC
       run: |
         docker run -v workdir:/workdir \
