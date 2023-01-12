@@ -11,7 +11,7 @@ jobs:
     - name: Install oc
       uses: redhat-actions/oc-installer@v1
       with:
-        oc_version: '4.11.9'
+        oc_version: latest
     - name: Create Workdir
       run: mkdir workdir
     - name: Pull CRC
