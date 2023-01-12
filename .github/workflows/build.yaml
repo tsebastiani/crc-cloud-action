@@ -26,8 +26,19 @@ jobs:
         -e AWS_DEFAULT_REGION=us-west-2 \
         -e CREATE_RUN_ID=crc \
         quay.io/crcont/crc-cloud
-    - name: List workdir
-      run: cat $(pwd)/workdir/crc/cluster_infos.json
+    - name: Get OpenShift instance address
+      uses: sergeysova/jq-action@v2
+      id: cluster_address
+      with:
+        cmd: jq -r '.api.address' $(pwd)/workdir/crc/cluster_infos.json
+    - name: Install oc
+      uses: redhat-actions/oc-installer@v1
+      with:
+        oc_version: '4.7'
+    - name: oc login & get namespaces
+      run: |
+        oc login -u kubeadmin -p kubeadmin ${{ steps.keywords.outputs.value }}:644 && \
+        oc get namespaces 
     - name: Teardown
       env: 
         PULL_SECRET: ${{ secrets.PULL_SECRET }}
