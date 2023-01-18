@@ -17,6 +17,7 @@ jobs:
       with:
         run: |  
           ls -al
+          echo "MIMMO AWS_ACCESS_KEY_ID"
     - name: Install oc
       uses: redhat-actions/oc-installer@v1
       with:
