@@ -17,7 +17,7 @@ jobs:
         GIUSEPPE: "GIUSEPPE GARIB"
       with:
         run: |  
-          echo "MIMMO $AWS_ACCESS_KEY_ID $PULL_SECRET $GIUSEPPE ${{ env.GIUSEPPE }}"
+          echo "MIMMO $AWS_ACCESS_KEY_ID $PULL_SECRET $GIUSEPPE ${{ env.PULL_SECRET }}"
     - name: Install oc
       uses: redhat-actions/oc-installer@v1
       with:
