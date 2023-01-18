@@ -4,7 +4,7 @@ jobs:
   pr_commented:
     # This job only runs for pull request comments
     name: PR comment
-    if: contains(github.event.comment.body, 'ocptest') 
+    if: contains(github.event.comment.body, 'ocptest') && ${{ github.event.issue.pull_request }} 
     runs-on: ubuntu-latest
     steps:
       - name: echo
