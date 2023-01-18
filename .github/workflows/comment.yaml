@@ -4,7 +4,7 @@ jobs:
   pr_commented:
     # This job only runs for pull request comments
     name: PR comment
-    if: ${{ github.event.comment.body == 'mimmo'}} 
+    if: contains(github.event.comment.body, 'ocptest') 
     runs-on: ubuntu-latest
     steps:
       - name: echo
