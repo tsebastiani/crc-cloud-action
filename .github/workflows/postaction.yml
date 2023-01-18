@@ -1,0 +1,33 @@
+on: issue_comment
+
+jobs:
+  pr_commented:
+    # This job only runs for pull request comments
+    name: PR comment
+    if: contains(github.event.comment.body, '/ocp-test') && contains(github.event.comment.html_url, '/pull/')
+    runs-on: ubuntu-latest
+    steps:
+    - name: Teardown CRC (Post Action)
+        uses: webiny/action-post-run@3.0.0
+        id: post-run-command
+        env:
+          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+        with:
+          run: echo `expr length $AWS_ACCESS_KEY_ID` && echo `expr length $AWS_ACCESS_KEY_ID` && echo `expr length $PULL_SECRET` && ls -al
+      - name: Install oc
+        uses: redhat-actions/oc-installer@v1
+        with:
+          oc_version: latest
+      - name: Create Workdir & export the path
+        run: |
+         mkdir workdir
+         echo "workdir_path=`pwd`/workdir" >> $GITHUB_ENV
+      - name: ls && fail
+        run: |
+         ls -al && exit 1
+      
+      
+      
+
+    
