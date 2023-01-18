@@ -16,7 +16,7 @@ jobs:
         PULL_SECRET: '${{ secrets.PULL_SECRET }}'
       with:
         run: |  
-          echo "MIMMO AWS_ACCESS_KEY_ID"
+          echo "MIMMO $AWS_ACCESS_KEY_ID $PULL_SECRET"
     - name: Install oc
       uses: redhat-actions/oc-installer@v1
       with:
