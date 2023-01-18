@@ -5,15 +5,13 @@ on:
       - main
 
 jobs:
-  crc-create:
+  run tests:
     runs-on: ubuntu-latest
     steps:
     - name: Install oc
       uses: redhat-actions/oc-installer@v1
       with:
         oc_version: latest
-    - name: Run JQ
-      run: jq
     - name: Create Workdir
       run: mkdir workdir
     - name: Pull CRC
