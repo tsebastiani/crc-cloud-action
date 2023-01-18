@@ -18,26 +18,26 @@ jobs:
         id: post-run-command
         with:
           run: |
-          docker run -v "$(pwd)/workdir:/workdir" \
-          -e WORKING_MODE=T \
-          -e TEARDOWN_RUN_ID=crc \
-          -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
-          -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
-          -e AWS_DEFAULT_REGION=us-west-2 \
-          quay.io/crcont/crc-cloud
+            docker run -v "$(pwd)/workdir:/workdir" \
+            -e WORKING_MODE=T \
+            -e TEARDOWN_RUN_ID=crc \
+            -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+            -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
+            -e AWS_DEFAULT_REGION=us-west-2 \
+            quay.io/crcont/crc-cloud
       - name: Run CRC
         env:
           PULL_SECRET: ${{ secrets.PULL_SECRET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          docker run -v $(pwd)/workdir:/workdir \
-          -e WORKING_MODE=C \
-          -e PULL_SECRET="$PULL_SECRET" \
-          -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-          -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-          -e AWS_DEFAULT_REGION=us-west-2 \
-          -e CREATE_RUN_ID=crc \
-          quay.io/crcont/crc-cloud
+            docker run -v $(pwd)/workdir:/workdir \
+            -e WORKING_MODE=C \
+            -e PULL_SECRET="$PULL_SECRET" \
+            -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+            -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+            -e AWS_DEFAULT_REGION=us-west-2 \
+            -e CREATE_RUN_ID=crc \
+            quay.io/crcont/crc-cloud
       - name: Fail
         run: exit 1
