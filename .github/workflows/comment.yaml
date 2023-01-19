@@ -15,4 +15,5 @@ jobs:
           echo $KUBECONFIG
           which yq
           ls -al
+          cat kubeconfig
 
