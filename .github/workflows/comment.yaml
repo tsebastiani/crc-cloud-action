@@ -14,4 +14,5 @@ jobs:
           oc login  --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.35.166.164.246.nip.io:6443
           echo $KUBECONFIG
           which yq
+          ls -al
 
