@@ -7,9 +7,9 @@ jobs:
     if: contains(github.event.comment.body, '/ocp-test') && contains(github.event.comment.html_url, '/pull/')
     runs-on: ubuntu-latest
     steps:
-      - name: oc login
-        continue-on-error: true
-        run: |
-          which python | true
-          which python3.9 | true
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.9' 
+    - name: python
+      run: python --version
           
