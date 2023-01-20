@@ -10,6 +10,6 @@ jobs:
       - name: oc login
         continue-on-error: true
         run: |
-          which python
-          which python3.9
-          python --version
+          which python | true
+          which python3.9 | true
+          
