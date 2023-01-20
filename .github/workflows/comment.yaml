@@ -11,5 +11,7 @@ jobs:
       with:
         python-version: '3.9' 
     - name: python
-      run: python --version
+      run: |
+        python --version
+        pip --version
           
