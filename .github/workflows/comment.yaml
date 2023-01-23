@@ -55,4 +55,6 @@ jobs:
       run: cat CI/*markdown
     - name: ls
       run: ls -al
+    - name: ls
+      run: cat .coverage/*
 
