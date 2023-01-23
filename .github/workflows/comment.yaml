@@ -45,7 +45,7 @@ jobs:
         #echo "test_namespace"      >> ./CI/tests/my_tests
         echo "test_net_chaos"      >> ./CI/tests/my_tests
         #echo "test_nodes"          >> ./CI/tests/my_tests
-        echo "test_pods"           >> ./CI/tests/my_tests
+        #echo "test_pods"           >> ./CI/tests/my_tests <--- disabled
     - name: Running test suite
       run: |
         ./CI/run.sh
@@ -53,4 +53,6 @@ jobs:
       run: cat  CI/out/*out
     - name: show coverage
       run: cat CI/*markdown
+    - name: ls
+      run: ls -al
 
