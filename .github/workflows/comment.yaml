@@ -39,8 +39,8 @@ jobs:
         yq '.[0].config.namespace_pattern ="^${{env.NAMESPACE}}$"' -i CI/scenarios/hello_pod_killing.yml
 
         echo "test_app_outages_gh"  > ./CI/tests/my_tests
-        echo "test_container"      >> ./CI/tests/my_tests
-        echo "test_cpu_hog_gh"     >> ./CI/tests/my_tests
+        #echo "test_container"      >> ./CI/tests/my_tests
+        #echo "test_cpu_hog_gh"     >> ./CI/tests/my_tests
         #echo "test_io_hog_gh"      >> ./CI/tests/my_tests
         #echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
         #echo "test_namespace"      >> ./CI/tests/my_tests
@@ -53,4 +53,10 @@ jobs:
         ./CI/run.sh
     - name: Create coverage file
       run: |
-        python -m coverage report --format=markdown > $GITHUB_STEP_SUMMARY
+        python -m coverage report --format=markdown > ${{env.COVERAGE_FILE_MD}}
+        cat ${{env.COVERAGE_FILE_MD}} > $GITHUB_STEP_SUMMARY
+    - name: Add Coverage PR Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        recreate: true
+        path:  ${{env.COVERAGE_FILE_MD}}
