@@ -40,20 +40,20 @@ jobs:
       run: |
         echo "test_container" > ./CI/tests/my_tests
         ./CI/run.sh
-        cat CI/out/results.markdown
+        #cat CI/out/results.markdown
     - name: Test CPU hog
       run: |
           echo "test_cpu_hog_gh" > ./CI/tests/my_tests
           ./CI/run.sh
-          cat CI/out/results.markdown
+          #cat CI/out/results.markdown
     - name: Test IO hog
       run: |
           echo "test_io_hog_gh" > ./CI/tests/my_tests
           ./CI/run.sh
-          cat CI/out/results.markdown
+          #cat CI/out/results.markdown
     - name: Test IO hog
       run: |
           echo "test_mem_hog_gh" > ./CI/tests/my_tests
           ./CI/run.sh
-          cat CI/out/results.markdown
+          #cat CI/out/results.markdown
 
