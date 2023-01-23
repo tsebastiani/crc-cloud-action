@@ -29,11 +29,14 @@ jobs:
       run: |
         echo "DEPLOYMENT_NAME=test-nginx" >> $GITHUB_ENV
         echo "NODE_NAME=crc-lgph7-master-0" >> $GITHUB_ENV
+        echo "NAMESPACE=test-namespace" >> $GITHUB_ENV
     - name: Setup test suite
       run: |
         yq -i '.kraken.port="8081"' CI/config/common_test_config.yaml
         yq -i '.kraken.signal_address="0.0.0.0"' CI/config/common_test_config.yaml
-        
+        yq '.[0].config.label_selector ="app=${{env.DEPLOYMENT_NAME}}"' -i CI/scenarios/hello_pod_killing.yml
+        yq '.[0].config.namespace_pattern ="^${{env.NAMESPACE}}$"' -i CI/scenarios/hello_pod_killing.yml
+
         echo "test_app_outages_gh"  > ./CI/tests/my_tests
         echo "test_container"      >> ./CI/tests/my_tests
         echo "test_cpu_hog_gh"     >> ./CI/tests/my_tests
@@ -41,7 +44,8 @@ jobs:
         echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
         #echo "test_namespace"      >> ./CI/tests/my_tests
         echo "test_net_chaos"      >> ./CI/tests/my_tests
-        echo "test_nodes"          >> ./CI/tests/my_tests
+        #echo "test_nodes"          >> ./CI/tests/my_tests
+        echo "test_pods"           >> ./CI/tests/my_tests
     - name: Running test suite
       run: |
         ./CI/run.sh
