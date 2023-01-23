@@ -37,7 +37,6 @@ jobs:
         echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
 
     - name: Running test suite
-      env:
       run: |
         ./CI/run.sh
     - name: show results
