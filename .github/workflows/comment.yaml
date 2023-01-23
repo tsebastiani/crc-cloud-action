@@ -14,9 +14,11 @@ jobs:
       uses: redhat-actions/oc-installer@v1
       with:
         oc_version: latest
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
       with:
-        name: redhat-chaos/krkn
+        repository: redhat-chaos/krkn
     - name: oc login
       run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.35.92.104.60.nip.io:6443
     - name: ls
