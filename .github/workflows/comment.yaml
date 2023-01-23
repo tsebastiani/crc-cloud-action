@@ -40,5 +40,5 @@ jobs:
       run: |
         ./CI/run.sh
     - name: show results
-      run: ls -al CI/out
+      run: cat  CI/out/*out
 
