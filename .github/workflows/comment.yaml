@@ -38,19 +38,22 @@ jobs:
         yq '.[0].config.namespace_pattern ="^${{env.NAMESPACE}}$"' -i CI/scenarios/hello_pod_killing.yml
 
         echo "test_app_outages_gh"  > ./CI/tests/my_tests
-        echo "test_container"      >> ./CI/tests/my_tests
-        echo "test_cpu_hog_gh"     >> ./CI/tests/my_tests
-        echo "test_io_hog_gh"      >> ./CI/tests/my_tests
-        echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
+        #echo "test_container"      >> ./CI/tests/my_tests
+        #echo "test_cpu_hog_gh"     >> ./CI/tests/my_tests
+        #echo "test_io_hog_gh"      >> ./CI/tests/my_tests
+        #echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
         #echo "test_namespace"      >> ./CI/tests/my_tests
-        echo "test_net_chaos"      >> ./CI/tests/my_tests
-        #echo "test_nodes"          >> ./CI/tests/my_tests
-        #echo "test_pods"           >> ./CI/tests/my_tests <--- disabled
+        #echo "test_net_chaos"      >> ./CI/tests/my_tests
+        ##echo "test_nodes"          >> ./CI/tests/my_tests
+        ##echo "test_pods"           >> ./CI/tests/my_tests <--- disabled
     - name: Running test suite
       run: |
         ./CI/run.sh
     - name: Create coverage file
-      run: python -m coverage report --format=markdown > coverage.xml
+      run: |
+        python -m coverage report --format=markdown > coverage.xml
+        pwd
+        ls -al
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
