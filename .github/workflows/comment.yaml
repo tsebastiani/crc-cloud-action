@@ -47,7 +47,7 @@ jobs:
           echo "test_cpu_hog_gh" > ./CI/tests/my_tests
           ./CI/run.sh
     - name: cat result
-      run: cat CI/out/test_cpu_hog.out
+      run: cat CI/out/test_cpu_hog_gh.out
     - name: cat config
       run: cat CI/config/litmus_config.yaml
 
