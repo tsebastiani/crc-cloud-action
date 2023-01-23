@@ -51,4 +51,6 @@ jobs:
           ./CI/run.sh
     - name: cat result
       run: cat CI/out/test_cpu_hog.out
+    - name: cat config
+      run: cat CI/config/litmus_config.yaml
 
