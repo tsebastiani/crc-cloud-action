@@ -39,10 +39,12 @@ jobs:
         echo "test_cpu_hog_gh"     >> ./CI/tests/my_tests
         echo "test_io_hog_gh"      >> ./CI/tests/my_tests
         echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
-
+        echo "test_net_chaos"      >> ./CI/tests/my_tests
     - name: Running test suite
       run: |
         ./CI/run.sh
     - name: show results
       run: cat  CI/out/*out
+    - name: show coverage
+      run: cat CI/out/*markdown
 
