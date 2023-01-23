@@ -42,12 +42,18 @@ jobs:
         ./CI/run.sh
     - name: Test CPU hog
       env:
-        DEPLOYMENT_NAME: test-nginx
       run: |
           echo "test_cpu_hog_gh" > ./CI/tests/my_tests
           ./CI/run.sh
+    - name: Test IO hog
+      env:
+      run: |
+          echo "test_io_hog_gh" > ./CI/tests/my_tests
+          ./CI/run.sh
     - name: cat result
       run: cat CI/out/test_cpu_hog_gh.out
+    - name: cat result
+      run: cat CI/out/test_io_hog_gh.out
     - name: cat config
       run: cat CI/config/litmus_config.yaml
 
