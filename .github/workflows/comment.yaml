@@ -9,9 +9,25 @@ jobs:
     steps:
     - uses: actions/setup-python@v4
       with:
-        python-version: '3.9' 
-    - name: python
+        python-version: '3.9'
+    - name: Install OC CLI
+      uses: redhat-actions/oc-installer@v1
+      with:
+        oc_version: latest
+    - uses: actions/checkout@master
+      with:
+        name: redhat-chaos/krkn
+        ref: refs/heads/release
+    - name: oc login
+      run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.35.92.104.60.nip.io:6443
+    - name: Setup kraken dependencies
+      run:  pip install -r requirements.txt
+    - name: Test app outage scenario
+      env:
+        DEPLOYMENT_NAME: test-nginx
       run: |
-        python --version
-        pip --version
-          
+        echo "test_app_outages" > ./CI/tests/my_tests
+        yq -i '.kraken.port="8081"' CI/config/common_test_config.yaml
+        yq -i '.kraken.signal_address="0.0.0.0"' CI/config/common_test_config.yaml
+        yq -i '.application_outage.pod_selector={"app":"${{ env.DEPLOYMENT_NAME}}"}' CI/scenarios/app_outage.yaml
+        ./CI/run.sh
