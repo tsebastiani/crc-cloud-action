@@ -30,7 +30,7 @@ jobs:
         echo "DEPLOYMENT_NAME=test-nginx" >> $GITHUB_ENV
         echo "NODE_NAME=crc-lgph7-master-0" >> $GITHUB_ENV
         echo "NAMESPACE=test-namespace" >> $GITHUB_ENV
-        echo "COVERAGE_FILE=`pwd`/coverage.xml"
+        echo "COVERAGE_FILE=`pwd`/coverage.xml" >> $GITHUB_ENV
     - name: Setup test suite
       run: |
         yq -i '.kraken.port="8081"' CI/config/common_test_config.yaml
@@ -45,6 +45,7 @@ jobs:
         #echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
         #echo "test_namespace"      >> ./CI/tests/my_tests
         #echo "test_net_chaos"      >> ./CI/tests/my_tests
+        #echo "test_time"           >> ./CI/tests/my_tests
         ##echo "test_nodes"          >> ./CI/tests/my_tests
         ##echo "test_pods"           >> ./CI/tests/my_tests <--- disabled
     - name: Running test suite
