@@ -53,9 +53,7 @@ jobs:
         ./CI/run.sh
     - name: Create coverage file
       run: |
-        python -m coverage report --format=markdown > coverage.xml
-        pwd
-        ls -al
+        python -m coverage report --format=markdown > ${{env.COVERAGE_FILE}}
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
