@@ -44,11 +44,9 @@ jobs:
       env:
         DEPLOYMENT_NAME: test-nginx
       run: |
+          echo "test_cpu_hog" > ./CI/tests/my_tests
           NODE_NAME=`oc get nodes -o json | jq -r '.items[0].metadata.name'`
           yq -i ' .spec.experiments = {"name": "node-cpu-hog", "spec":{"components":{"env":[{"name":"TOTAL_CHAOS_DURATION","value":"10"},{"name":"NODE_CPU_CORE","value":"1"},{"name":"NODES_AFFECTED_PERC","value":"30"},{"name":"TARGET_NODES","value":"'$NODE_NAME'"}]}}}' CI/scenarios/node_cpu_hog_engine_node.yaml
           cat CI/scenarios/node_cpu_hog_engine_node.yaml  
           ./CI/run.sh
-
-    - name: result
-      run: cat CI/out/test_cpu_hog.out
 
