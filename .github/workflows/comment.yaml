@@ -30,7 +30,7 @@ jobs:
         echo "DEPLOYMENT_NAME=test-nginx" >> $GITHUB_ENV
         echo "NODE_NAME=crc-lgph7-master-0" >> $GITHUB_ENV
         echo "NAMESPACE=test-namespace" >> $GITHUB_ENV
-        echo "COVERAGE_FILE=`pwd`/coverage.xml" >> $GITHUB_ENV
+        echo "COVERAGE_FILE=`pwd`/coverage.markdown" >> $GITHUB_ENV
     - name: Setup test suite
       run: |
         yq -i '.kraken.port="8081"' CI/config/common_test_config.yaml
@@ -55,7 +55,8 @@ jobs:
       run: |
         ls -al
         python -m coverage report --format=markdown
-        python -m coverage report --format=markdown > coverage.xml
+        python -m coverage report --format=markdown > coverage.markdown | true
+        cat coverage.markdown
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
