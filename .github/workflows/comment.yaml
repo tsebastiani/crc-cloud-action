@@ -34,3 +34,14 @@ jobs:
         yq -i '.kraken.signal_address="0.0.0.0"' CI/config/common_test_config.yaml
         yq -i '.application_outage.pod_selector={"app":"${{ env.DEPLOYMENT_NAME}}"}' CI/scenarios/app_outage.yaml
         ./CI/run.sh
+    - name: Test container failure
+      env:
+        DEPLOYMENT_NAME: test-nginx
+      run: |
+        echo "test_container" > ./CI/tests/my_tests
+        #yq -i '.kraken.port="8081"' CI/config/common_test_config.yaml
+        #yq -i '.kraken.signal_address="0.0.0.0"' CI/config/common_test_config.yaml
+        #yq -i '.application_outage.pod_selector={"app":"${{ env.DEPLOYMENT_NAME}}"}' CI/scenarios/app_outage.yaml
+        ./CI/run.sh
+    - name: result
+      run: cat CI/out/test_container.out
