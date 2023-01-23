@@ -55,7 +55,7 @@ jobs:
       run: |
         ls -al
         python -m coverage report --format=markdown
-        python -m coverage report --format=markdown > ${{env.COVERAGE_FILE}}
+        python -m coverage report --format=markdown > coverage.xml
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
