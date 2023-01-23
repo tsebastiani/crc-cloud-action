@@ -60,3 +60,4 @@ jobs:
       with:
         recreate: true
         path:  ${{env.COVERAGE_FILE_MD}}
+        number:  ${{ github.event.number }}
