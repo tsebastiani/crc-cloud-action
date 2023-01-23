@@ -25,12 +25,10 @@ jobs:
       run: ls -al
     - name: Setup kraken dependencies
       run:  pip install -r requirements.txt
-    - name: oc login && example nginx deployment
-      env:
-        NAMESPACE: test-namespace
-        DEPLOYMENT_NAME: test-nginx
-        KUBEADMIN_PWD: kubeadmin
-      run: ./CI/CRC/login_and_deploy.sh
+    - name: mock set env
+      run: |
+        echo "DEPLOYMENT_NAME=test-nginx" >> $GITHUB_ENV
+        echo "NODE_NAME=crc-lgph7-master-0" >> $GITHUB_ENV
     - name: Setup test suite
       run: |
         yq -i '.kraken.port="8081"' CI/config/common_test_config.yaml
