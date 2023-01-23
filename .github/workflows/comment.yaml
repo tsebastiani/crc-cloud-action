@@ -56,7 +56,7 @@ jobs:
         ls -al
         python -m coverage report --format=markdown
         python -m coverage report --format=markdown > ${{ env.COVERAGE_FILE_MD }} | true
-        cat tullio.md
+        cat ${{ env.COVERAGE_FILE_MD }}
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
