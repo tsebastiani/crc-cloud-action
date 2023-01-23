@@ -41,12 +41,10 @@ jobs:
         echo "test_container" > ./CI/tests/my_tests
         ./CI/run.sh
     - name: Test CPU hog
-      env:
       run: |
           echo "test_cpu_hog_gh" > ./CI/tests/my_tests
           ./CI/run.sh
     - name: Test IO hog
-      env:
       run: |
           echo "test_io_hog_gh" > ./CI/tests/my_tests
           ./CI/run.sh
