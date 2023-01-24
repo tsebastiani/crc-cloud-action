@@ -19,6 +19,8 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: tsebastiani/krkn
+    - name: Coverage Badge
+        uses: tj-actions/coverage-badge-py@v1.8
     - name: oc login
       run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.34.211.114.208.nip.io:6443
     - name: ls
