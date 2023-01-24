@@ -55,6 +55,7 @@ jobs:
       run: |
         python -m coverage report --format=markdown > ${{env.COVERAGE_FILE_MD}}
         cat ${{env.COVERAGE_FILE_MD}} > $GITHUB_STEP_SUMMARY
+        echo "event number ${{ github.event.number }}"
     - name: Add Coverage PR Comment
       uses: marocchino/sticky-pull-request-comment@v2
       with:
