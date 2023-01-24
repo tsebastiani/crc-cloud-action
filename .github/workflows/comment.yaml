@@ -20,7 +20,7 @@ jobs:
       with:
         repository: tsebastiani/krkn
     - name: oc login
-      run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.34.211.114.208.nip.io:6443
+      run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.54.202.228.207.nip.io:6443
     - name: ls
       run: ls -al
     - name: Setup kraken dependencies
