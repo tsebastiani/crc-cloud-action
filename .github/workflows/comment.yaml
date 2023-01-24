@@ -20,7 +20,7 @@ jobs:
       with:
         repository: tsebastiani/krkn
     - name: oc login
-      run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.35.92.104.60.nip.io:6443
+      run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.34.211.114.208.nip.io:6443
     - name: ls
       run: ls -al
     - name: Setup kraken dependencies
@@ -38,14 +38,14 @@ jobs:
         yq '.[0].config.label_selector ="app=${{env.DEPLOYMENT_NAME}}"' -i CI/scenarios/hello_pod_killing.yml
         yq '.[0].config.namespace_pattern ="^${{env.NAMESPACE}}$"' -i CI/scenarios/hello_pod_killing.yml
 
-        echo "test_app_outages_gh"  > ./CI/tests/my_tests
+        #echo "test_app_outages_gh"  > ./CI/tests/my_tests
         #echo "test_container"      >> ./CI/tests/my_tests
         #echo "test_cpu_hog_gh"     >> ./CI/tests/my_tests
         #echo "test_io_hog_gh"      >> ./CI/tests/my_tests
         #echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
         #echo "test_namespace"      >> ./CI/tests/my_tests
         #echo "test_net_chaos"      >> ./CI/tests/my_tests
-        #echo "test_time"           >> ./CI/tests/my_tests
+        echo "test_time"           >> ./CI/tests/my_tests
         ##echo "test_nodes"          >> ./CI/tests/my_tests
         ##echo "test_pods"           >> ./CI/tests/my_tests <--- disabled
     - name: Running test suite
