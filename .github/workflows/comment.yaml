@@ -58,12 +58,12 @@ jobs:
       run: |
         python -m coverage report --format=markdown > ${{env.COVERAGE_FILE_MD}}
         cat ${{env.COVERAGE_FILE_MD}} > $GITHUB_STEP_SUMMARY
-        
+
     - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v12
-        id: changed_files
-        with:
-          files: coverage.svg
+      uses: tj-actions/verify-changed-files@v12
+      id: changed_files
+      with:
+        files: coverage.svg
 
     - name: Commit files
       if: steps.changed_files.outputs.files_changed == 'true'
