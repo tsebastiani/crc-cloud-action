@@ -14,7 +14,7 @@ jobs:
       - name: LS
         run: |
           ls -al
-          cat .ssl.sh
+          cat ./ssl.sh
     #- uses: actions/setup-python@v4
     #  with:
     #    python-version: '3.9'
