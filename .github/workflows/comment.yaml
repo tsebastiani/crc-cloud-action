@@ -7,89 +7,98 @@ jobs:
     if: contains(github.event.comment.body, '/ocp-test') && contains(github.event.comment.html_url, '/pull/')
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-    - name: Install OC CLI
-      uses: redhat-actions/oc-installer@v1
-      with:
-        oc_version: latest
-    - uses: actions/checkout@v2
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        repository: tsebastiani/krkn
-    - name: oc login
-      run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.54.149.181.142.nip.io:6443
-    - name: ls
-      run: ls -al
-    - name: Setup kraken dependencies
-      run:  pip install -r requirements.txt
-    - name: mock set env
-      run: |
-        echo "DEPLOYMENT_NAME=test-nginx" >> $GITHUB_ENV
-        echo "NODE_NAME=crc-lgph7-master-0" >> $GITHUB_ENV
-        echo "NAMESPACE=test-namespace" >> $GITHUB_ENV
-        echo "COVERAGE_FILE_MD=`pwd`/tullio.md" >> $GITHUB_ENV
-    - name: Setup test suite
-      run: |
-        yq -i '.kraken.port="8081"' CI/config/common_test_config.yaml
-        yq -i '.kraken.signal_address="0.0.0.0"' CI/config/common_test_config.yaml
-        yq '.[0].config.label_selector ="app=${{env.DEPLOYMENT_NAME}}"' -i CI/scenarios/hello_pod_killing.yml
-        yq '.[0].config.namespace_pattern ="^${{env.NAMESPACE}}$"' -i CI/scenarios/hello_pod_killing.yml
-
-        echo "test_cpu_hog_gh"      > ./CI/tests/my_tests
-        echo "test_io_hog_gh"      >> ./CI/tests/my_tests
-        echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
-        echo "test_app_outages_gh" >> ./CI/tests/my_tests
-        echo "test_container"      >> ./CI/tests/my_tests
-         
-        #echo "test_namespace"      >> ./CI/tests/my_tests
-        #echo "test_net_chaos"      >> ./CI/tests/my_tests
-        #echo "test_time"           >> ./CI/tests/my_tests
-
-        #echo "test_app_outages_gh"  > ./CI/tests/my_tests
-        #echo "test_container"      >> ./CI/tests/my_tests
-        #echo "test_cpu_hog_gh"     >> ./CI/tests/my_tests
-        #echo "test_io_hog_gh"      >> ./CI/tests/my_tests
-        #echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
-        #echo "test_namespace"      >> ./CI/tests/my_tests
-        #echo "test_net_chaos"      >> ./CI/tests/my_tests
-        #echo "test_time"           >> ./CI/tests/my_tests
-        ##echo "test_nodes"          >> ./CI/tests/my_tests
-        ##echo "test_pods"           >> ./CI/tests/my_tests <--- disabled
-    - name: Running test suite
-      run: |
-        ./CI/run.sh
-
-    - name: Create coverage report
-      run: |
-        python -m coverage report --format=markdown > $GITHUB_STEP_SUMMARY
-    - name: Print test output
-      run:  cat CI/out/*
-
-    - name: Coverage Badge
-      uses: tj-actions/coverage-badge-py@v1.8
-
-    - name: Verify Changed files
-      uses: tj-actions/verify-changed-files@v12
-      id: changed_files
-      with:
-        files: coverage.svg
-
-    - name: Commit files
-      if: steps.changed_files.outputs.files_changed == 'true'
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git pull
-        git add coverage.svg
-        git commit -m "Updated coverage.svg"
-
-    - name: Push changes
-      if: steps.changed_files.outputs.files_changed == 'true'
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.github_token }}
-        branch:  ${{ github.head_ref }}
-        force_with_lease: true
+      - name: Check out Kraken
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: LS
+        run: ls -al
+    #- uses: actions/setup-python@v4
+    #  with:
+    #    python-version: '3.9'
+    #- name: Install OC CLI
+    #  uses: redhat-actions/oc-installer@v1
+    #  with:
+    #    oc_version: latest
+    #- uses: actions/checkout@v2
+    #- name: Checkout
+    #  uses: actions/checkout@v2
+    #  with:
+    #    repository: tsebastiani/krkn
+    #- name: oc login
+    #  run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.54.149.181.142.nip.io:6443
+    #- name: ls
+    #  run: ls -al
+    #- name: Setup kraken dependencies
+    #  run:  pip install -r requirements.txt
+    #- name: mock set env
+    #  run: |
+    #    echo "DEPLOYMENT_NAME=test-nginx" >> $GITHUB_ENV
+    #    echo "NODE_NAME=crc-lgph7-master-0" >> $GITHUB_ENV
+    #    echo "NAMESPACE=test-namespace" >> $GITHUB_ENV
+    #    echo "COVERAGE_FILE_MD=`pwd`/tullio.md" >> $GITHUB_ENV
+    #- name: Setup test suite
+    #  run: |
+    #    yq -i '.kraken.port="8081"' CI/config/common_test_config.yaml
+    #    yq -i '.kraken.signal_address="0.0.0.0"' CI/config/common_test_config.yaml
+    #    yq '.[0].config.label_selector ="app=${{env.DEPLOYMENT_NAME}}"' -i CI/scenarios/hello_pod_killing.yml
+    #    yq '.[0].config.namespace_pattern ="^${{env.NAMESPACE}}$"' -i CI/scenarios/hello_pod_killing.yml
+#
+    #    echo "test_cpu_hog_gh"      > ./CI/tests/my_tests
+    #    echo "test_io_hog_gh"      >> ./CI/tests/my_tests
+    #    echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
+    #    echo "test_app_outages_gh" >> ./CI/tests/my_tests
+    #    echo "test_container"      >> ./CI/tests/my_tests
+    #     
+    #    echo "test_namespace"      >> ./CI/tests/my_tests
+    #    echo "test_net_chaos"      >> ./CI/tests/my_tests
+    #    echo "test_time"           >> ./CI/tests/my_tests
+#
+    #    #echo "test_app_outages_gh"  > ./CI/tests/my_tests
+    #    #echo "test_container"      >> ./CI/tests/my_tests
+    #    #echo "test_cpu_hog_gh"     >> ./CI/tests/my_tests
+    #    #echo "test_io_hog_gh"      >> ./CI/tests/my_tests
+    #    #echo "test_mem_hog_gh"     >> ./CI/tests/my_tests
+    #    #echo "test_namespace"      >> ./CI/tests/my_tests
+    #    #echo "test_net_chaos"      >> ./CI/tests/my_tests
+    #    #echo "test_time"           >> ./CI/tests/my_tests
+    #    ##echo "test_nodes"          >> ./CI/tests/my_tests
+    #    ##echo "test_pods"           >> ./CI/tests/my_tests <--- disabled
+    #- name: Running test suite
+    #  run: |
+    #    # sleep needed to stabilize the OpenShift instance after the deploym
+    #    sleep 60
+    #    ./CI/run.sh
+#
+    #- name: Create coverage report
+    #  run: |
+    #    python -m coverage report --format=markdown > $GITHUB_STEP_SUMMARY
+    #- name: Print test output
+    #  run:  cat CI/out/*
+#
+    #- name: Coverage Badge
+    #  uses: tj-actions/coverage-badge-py@v1.8
+#
+    #- name: Verify Changed files
+    #  uses: tj-actions/verify-changed-files@v12
+    #  id: changed_files
+    #  with:
+    #    files: coverage.svg
+#
+    #- name: Commit files
+    #  if: steps.changed_files.outputs.files_changed == 'true'
+    #  run: |
+    #    git config --local user.email "github-actions[bot]@users.noreply.github.com"
+    #    git config --local user.name "github-actions[bot]"
+    #    git pull
+    #    git add coverage.svg
+    #    git commit -m "Updated coverage.svg"
+#
+    #- name: Push changes
+    #  if: steps.changed_files.outputs.files_changed == 'true'
+    #  uses: ad-m/github-push-action@master
+    #  with:
+    #    github_token: ${{ secrets.github_token }}
+    #    branch:  ${{ github.head_ref }}
+    #    force_with_lease: true
+#
