@@ -12,7 +12,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: LS
-        run: ls -al
+        run: cat run.sh
     #- uses: actions/setup-python@v4
     #  with:
     #    python-version: '3.9'
