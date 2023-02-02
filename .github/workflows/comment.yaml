@@ -48,3 +48,11 @@ jobs:
       - name: Running test suite
         run: |
           ./CI/run.sh
+      - name: Print test output
+        run:  cat CI/out/*
+      - name: Create coverage report
+        run: |
+          echo "# Test results" > $GITHUB_STEP_SUMMARY
+          cat CI/results.markdown >> $GITHUB_STEP_SUMMARY
+          echo "# Test coverage" >> $GITHUB_STEP_SUMMARY
+          python -m coverage report --format=markdown >> $GITHUB_STEP_SUMMARY 
