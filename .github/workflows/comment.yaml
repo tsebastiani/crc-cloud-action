@@ -19,7 +19,7 @@ jobs:
         with:
           oc_version: latest
       - name: oc login
-        run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.34.219.186.218.nip.io:6443
+        run: oc login --insecure-skip-tls-verify -u kubeadmin -p kubeadmin https://api.54.212.67.215.nip.io:6443
       - name: ls
         run: ls -al
       - name: Setup kraken dependencies
