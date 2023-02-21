@@ -17,7 +17,7 @@ jobs:
         run: |
           for i in `echo $USERS`
           do
-            NAME=`echo -n "$i marker"`
+            NAME=`echo -n "$i"`
             echo "$NAME space"
           done
       - name: Check User
