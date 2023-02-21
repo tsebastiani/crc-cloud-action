@@ -13,6 +13,7 @@ jobs:
         run: ls -al .github
       - name: Check User
         run: |
+          echo $USERS_LIST
           for name in `echo $USERS_LIST`
           do 
             if [ $name == "${{github.event.sender.login}}" ]
