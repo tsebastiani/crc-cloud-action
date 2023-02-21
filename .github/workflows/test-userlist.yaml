@@ -12,4 +12,4 @@ jobs:
         with:
           repository: tsebastiani/krkn
       - name: Check User
-        run: echo ${{github.event.sender.login}}
+        run: grep "${{github.event.sender.login}}" .github/users.txt
