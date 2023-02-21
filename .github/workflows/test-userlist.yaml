@@ -9,8 +9,6 @@ jobs:
     steps:
       - name: Check out Kraken
         uses: actions/checkout@v3
-        with:
-          repository: tsebastiani/krkn
       - name: ls
         run: ls -al .github
       - name: Check User
