@@ -11,19 +11,11 @@ jobs:
     steps:
       - name: Check out Kraken
         uses: actions/checkout@v3
-      - name: ls
-        run: ls -al .github
-      - name: test
-        run: |
-          for i in `echo $USERS`
-          do
-            NAME=`echo -n "$i"`
-            echo "$NAME space"
-          done
       - name: Check User
         run: |
           for name in `echo $USERS`
           do 
+            echo $name
             if [ $name == "${{github.event.sender.login}}" ]
             then
               exit 0
