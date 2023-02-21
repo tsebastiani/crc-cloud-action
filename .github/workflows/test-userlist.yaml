@@ -11,5 +11,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: tsebastiani/krkn
+      - name: ls
+        run: ls -al  
       - name: Check User
         run: grep "${{github.event.sender.login}}" ./.github/users.txt
