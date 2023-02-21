@@ -15,7 +15,7 @@ jobs:
         run: |
           for name in `echo $USERS`
           do 
-            echo [ $name == ""${{github.event.sender.login}}" ]
+            echo [ $name == "${{github.event.sender.login}}" ]
             if [ $name == "${{github.event.sender.login}}" ]
             then
               exit 0
