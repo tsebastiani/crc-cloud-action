@@ -17,7 +17,7 @@ jobs:
         run: |
           for i in `echo $USERS`
           do
-            echo "SONGO IO:-${i/$'\n'}-"
+            echo "SONGO IO:-${i//$'\n'/}-"
           done
       - name: Check User
         run: |
