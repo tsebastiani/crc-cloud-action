@@ -12,4 +12,13 @@ jobs:
       - name: ls
         run: ls -al .github
       - name: Check User
-        run: grep "${{github.event.sender.login}}" ./.github/users.txt
+        run: |
+          for name in `cat .github/users.txt`
+          do 
+            if [ $name == "${{(github.event.sender.login}}" ]
+            then
+              exit 0
+            fi
+          done
+          echo "user ${{github.event.sender.login}} is not allowed to run functional tests Action"
+          exit 1
