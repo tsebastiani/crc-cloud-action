@@ -4,6 +4,8 @@ jobs:
   check_user:
     # This job only runs for pull request comments
     name: check user
+    env:
+      USERS: ${{vars.USERS}}
     if: contains(github.event.comment.body, '/ocp-test') && contains(github.event.comment.html_url, '/pull/')
     runs-on: ubuntu-latest
     steps:
