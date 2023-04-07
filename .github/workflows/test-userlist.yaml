@@ -22,3 +22,4 @@ jobs:
           done
           echo "user ${{github.event.sender.login}} is not allowed to run functional tests Action"
           exit 1
+
